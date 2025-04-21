@@ -1,4 +1,3 @@
-
 var buttonColours = ["red", "blue", "green", "yellow"];
 
 var gamePattern = [];
@@ -7,13 +6,36 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).keypress(function() {
-  if (!started) {
-    $("#level-title").text("Level " + level);
-    nextSequence();
-    started = true;
+// Check if device is mobile
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+// Update the title text based on device
+$(document).ready(function() {
+  if (isMobile) {
+    $("#level-title").text("Tap the Button to Start");
   }
 });
+
+// Handle keyboard start for desktop
+$(document).keydown(function() {
+  if (!started) {
+    startGame();
+  }
+});
+
+// Handle button tap for mobile
+$("#start-button").click(function() {
+  if (!started) {
+    startGame();
+  }
+});
+
+// Common function to start the game
+function startGame() {
+  $("#level-title").text("Level " + level);
+  nextSequence();
+  started = true;
+}
 
 $(".btn").click(function() {
 
@@ -37,7 +59,13 @@ function checkAnswer(currentLevel) {
     } else {
       playSound("wrong");
       $("body").addClass("game-over");
-      $("#level-title").text("Game Over, Press Any Key to Restart");
+      
+      // Update game over message based on device
+      if (isMobile) {
+        $("#level-title").text("Game Over, Tap Button to Restart");
+      } else {
+        $("#level-title").text("Game Over, Press Any Key to Restart");
+      }
 
       setTimeout(function () {
         $("body").removeClass("game-over");
