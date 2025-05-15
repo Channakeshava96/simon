@@ -16,18 +16,16 @@ $(document).ready(function() {
   }
 });
 
-// // Handle keyboard start for desktop
-// $(document).keydown(function() {
-//   if (!started) {
-//     startGame();
-//   }
-// });
 function startGame() {
-  $("#level-title").text("Level " + level);
-  $("#start-button").hide(); // Hide the button after game starts
-  nextSequence();
+  level = 0;
+  gamePattern = [];
+  userClickedPattern = [];
   started = true;
+  $("#start-button").hide(); // ✅ Hide the button
+  $("#level-title").text("Level " + level);
+  nextSequence();
 }
+
 
 
 // Handle button tap for mobile
@@ -37,12 +35,7 @@ $("#start-button").click(function() {
   }
 });
 
-// Common function to start the game
-function startGame() {
-  $("#level-title").text("Level " + level);
-  nextSequence();
-  started = true;
-}
+
 
 $(".btn").click(function() {
 
