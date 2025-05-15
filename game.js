@@ -16,12 +16,19 @@ $(document).ready(function() {
   }
 });
 
-// Handle keyboard start for desktop
-$(document).keydown(function() {
-  if (!started) {
-    startGame();
-  }
-});
+// // Handle keyboard start for desktop
+// $(document).keydown(function() {
+//   if (!started) {
+//     startGame();
+//   }
+// });
+function startGame() {
+  $("#level-title").text("Level " + level);
+  $("#start-button").hide(); // Hide the button after game starts
+  nextSequence();
+  started = true;
+}
+
 
 // Handle button tap for mobile
 $("#start-button").click(function() {
@@ -61,11 +68,13 @@ function checkAnswer(currentLevel) {
       $("body").addClass("game-over");
       
       // Update game over message based on device
-      if (isMobile) {
-        $("#level-title").text("Game Over, Tap Button to Restart");
-      } else {
-        $("#level-title").text("Game Over, Press Any Key to Restart");
-      }
+   if (isMobile) {
+  $("#level-title").text("Game Over, Tap Button to Restart");
+} else {
+  $("#level-title").text("Game Over, Click Button to Restart");
+}
+$("#start-button").show(); // Show the button again to restart
+
 
       setTimeout(function () {
         $("body").removeClass("game-over");
